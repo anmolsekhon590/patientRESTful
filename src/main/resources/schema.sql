@@ -3,6 +3,6 @@ CREATE TABLE Patient(
     name VARCHAR,
     systole NUMERIC,
     diastole NUMERIC,
-    temperature NUMERIC,
+    temperatureInFahrenheit NUMERIC,
     hasCovid BIT
 );
