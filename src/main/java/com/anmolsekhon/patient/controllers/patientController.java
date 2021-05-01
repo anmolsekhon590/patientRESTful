@@ -2,6 +2,7 @@ package com.anmolsekhon.patient.controllers;
 
 import com.anmolsekhon.patient.beans.Patient;
 import com.anmolsekhon.patient.database.DatabaseAccess;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,31 +19,13 @@ public class patientController {
     public String fetchAll() {
 
         List<Patient> patientList = da.getAllPatients();
-
-        String json  = "{";
-
-        int count = 1;
-        for (Patient p: patientList) {
-            if (patientList.size() > 1)
-                json += "{";
-
-            json += ("\"id\":" + p.getID());
-            json += (",\"name\":\"" + p.getName() + "\"");
-            json += (",\"systole\":" + p.getSystole());
-            json += (",\"diastole\":" + p.getDiastole());
-            json += (",\"temp\":" + p.getTemperatureInFahrenheit());
-            json += (",\"hasCovid\":" + p.getHasCovid());
-
-            if(patientList.size() > 1) {
-                json += "}";
-            }
-            if (patientList.size() > 1 && count != patientList.size()) {
-                json += ",";
-            }
-            count++;
+        ObjectMapper mapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(patientList);
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
-
-        json += "}";
 
         return json;
     }
