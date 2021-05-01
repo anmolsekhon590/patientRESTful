@@ -45,4 +45,9 @@ public class patientController {
         return "Updated Successfully";
     }
 
+    @DeleteMapping("/patient/{id}")
+    public String deleteMapping(@PathVariable Long id) {
+        da.deletePatient(id);
+        return "deleted successfully";
+    }
 }
