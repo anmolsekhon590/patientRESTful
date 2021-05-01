@@ -20,10 +20,11 @@ public class patientController {
 
         List<Patient> patientList = da.getAllPatients();
         ObjectMapper mapper = new ObjectMapper();
-        String json = "";
+        String json;
         try {
             json = mapper.writeValueAsString(patientList);
         } catch (Exception e) {
+            json = "{}";
             System.out.println(e.toString());
         }
 
