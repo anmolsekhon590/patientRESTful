@@ -4,8 +4,7 @@ import com.anmolsekhon.patient.beans.Patient;
 import com.anmolsekhon.patient.database.DatabaseAccess;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class patientController {
     @Autowired
     public DatabaseAccess da;
 
-    @GetMapping("/")
+    @GetMapping("/patient")
     public String fetchAll() {
 
         List<Patient> patientList = da.getAllPatients();
@@ -30,4 +29,20 @@ public class patientController {
 
         return json;
     }
+
+    @PostMapping("/patient")
+    public String addPatient(@RequestBody Patient patient) {
+
+        da.addPatient(patient);
+
+        return "Added Successfully!";
+    }
+
+    @PutMapping("/patient")
+    public String updatePatient(@RequestBody Patient patient) {
+
+        da.updatePatient(patient);
+        return "Updated Successfully";
+    }
+
 }
